@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册 - 言若金叶学习网</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            color: #333;
+            background: #f0f4f8;
+            line-height: 1.7;
+        }
+
+        /* ===== 头部 ===== */
+        header {
+            background: linear-gradient(135deg, #1e6fd9, #2a8fe0);
+            color: #fff;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 22px;
+        }
+
+        header nav a {
+            color: #eaf3ff;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        header nav a:hover,
+        header nav a.active {
+            color: #ffd964;
+        }
+
+        /* ===== 主体 ===== */
+        main {
+            max-width: 900px;
+            margin: 28px auto;
+            padding: 0 16px;
+        }
+
+        section {
+            background: #fff;
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 10px rgba(30, 111, 217, 0.08);
+        }
+
+        section h2 {
+            font-size: 19px;
+            color: #1e6fd9;
+            border-left: 4px solid #1e6fd9;
+            padding-left: 10px;
+            margin-bottom: 16px;
+        }
+
+        /* ===== 注册步骤（有序列表） ===== */
+        .steps {
+            margin-left: 26px;
+        }
+
+        .steps li {
+            margin-bottom: 6px;
+        }
+
+        /* ===== 注册表单 ===== */
+        .form-items {
+            list-style: none;
+        }
+
+        .form-items > li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .form-items label,
+        .form-items .field-label {
+            width: 96px;
+            text-align: right;
+            padding-right: 14px;
+            padding-top: 7px;
+            flex-shrink: 0;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-items .field {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            max-width: 340px;
+            padding: 8px 10px;
+            border: 1px solid #c6d4e3;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1e6fd9;
+            box-shadow: 0 0 0 3px rgba(30, 111, 217, 0.12);
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin: 8px 6px 0 4px;
+        }
+
+        textarea {
+            max-width: 560px;
+            resize: vertical;
+        }
+
+        .tip {
+            display: block;
+            font-size: 12px;
+            color: #8a97a5;
+            margin-top: 4px;
+        }
+
+        .required-mark {
+            color: #e44;
+            margin-left: 3px;
+        }
+
+        .buttons {
+            padding-left: 96px;
+        }
+
+        button {
+            padding: 9px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-right: 14px;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        button[type="submit"] {
+            background: #1e6fd9;
+            color: #fff;
+        }
+
+        button[type="submit"]:hover {
+            opacity: 0.9;
+        }
+
+        button[type="reset"] {
+            background: #eef2f7;
+            color: #555;
+            border: 1px solid #c6d4e3;
+        }
+
+        /* ===== 注意事项（无序列表） ===== */
+        .notice {
+            margin-left: 22px;
+        }
+
+        .notice li {
+            margin-bottom: 6px;
+        }
+
+        /* ===== 会员权益对比表 ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        caption {
+            caption-side: top;
+            font-weight: bold;
+            color: #1e6fd9;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        th,
+        td {
+            border: 1px solid #c6d4e3;
+            padding: 9px 12px;
+            text-align: center;
+        }
+
+        thead th {
+            background: #e8f1fc;
+            color: #1e5aa8;
+        }
+
+        tbody th {
+            background: #f6f9fd;
+            text-align: left;
+        }
+
+        tfoot td {
+            background: #fff8e8;
+            font-size: 13px;
+            color: #9a6b1f;
+            text-align: left;
+        }
+
+        .yes {
+            color: #1a9e4e;
+            font-weight: bold;
+        }
+
+        .no {
+            color: #c44;
+        }
+
+        /* ===== 常见问题（定义列表） ===== */
+        dl dt {
+            font-weight: bold;
+            color: #1e5aa8;
+            margin-top: 10px;
+        }
+
+        dl dd {
+            margin-left: 18px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* ===== 底部 ===== */
+        footer {
+            text-align: center;
+            padding: 22px 16px;
+            color: #7d8a99;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #1e6fd9;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 页面头部：主标题 + 导航（无序列表） -->
+    <header>
+        <h1>言若金叶学习网 · 用户注册</h1>
+        <nav>
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">课程中心</a></li>
+                <li><a href="#" class="active">注册</a></li>
+                <li><a href="#">帮助中心</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- 注册步骤：有序列表 -->
+        <section>
+            <h2>注册步骤</h2>
+            <ol class="steps">
+                <li>按要求填写下方注册信息（带 <span class="required-mark">*</span> 的为必填项）；</li>
+                <li>上传一张个人头像（支持 JPG、PNG 等图片，可多选）；</li>
+                <li>阅读并确认注意事项，点击“注册”按钮提交；</li>
+                <li>提交成功后，可在浏览器 Console 面板查看收集到的表单数据。</li>
+            </ol>
+        </section>
+
+        <!-- 注册表单：核心部分 -->
+        <section>
+            <h2>填写注册信息</h2>
+            <form action="#" method="post" id="registerForm" enctype="multipart/form-data">
+                <ul class="form-items">
+                    <li>
+                        <label for="username">用户名<span class="required-mark">*</span></label>
+                        <div class="field">
+                            <input type="text" id="username" name="username" required
+                                   placeholder="请输入用户名">
+                            <span class="tip">3-16 位字符，可包含字母、数字和下划线</span>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="password">密码<span class="required-mark">*</span></label>
+                        <div class="field">
+                            <input type="password" id="password" name="password"
+                                   placeholder="6-16位字符" minlength="6" maxlength="16" required>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="confirmPassword">确认密码<span class="required-mark">*</span></label>
+                        <div class="field">
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                   placeholder="请再次输入密码" required>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="field-label">性别</span>
+                        <div class="field">
+                            <!-- label 的 for+id 用法 -->
+                            <input type="radio" name="gender" id="male" value="male" checked>
+                            <label for="male">男</label>
+                            <!-- label 的包裹式用法 -->
+                            <label>
+                                <input type="radio" name="gender" id="female" value="female">女
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="birthday">出生日期</label>
+                        <div class="field">
+                            <input type="date" id="birthday" name="birthday">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="email">邮箱<span class="required-mark">*</span></label>
+                        <div class="field">
+                            <input type="email" id="email" name="email" required
+                                   placeholder="example@163.com">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="phone">手机号<span class="required-mark">*</span></label>
+                        <div class="field">
+                            <input type="tel" id="phone" name="phone" required
+                                   pattern="[0-9]{11}" placeholder="请输入11位手机号">
+                            <span class="tip">正则校验：只能输入 11 位数字</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="field-label">兴趣爱好</span>
+                        <div class="field">
+                            <label><input type="checkbox" name="hobby" value="reading">阅读</label>
+                            <label><input type="checkbox" name="hobby" value="sports">运动</label>
+                            <label><input type="checkbox" name="hobby" value="music">音乐</label>
+                            <label><input type="checkbox" name="hobby" value="travel">旅行</label>
+                            <label><input type="checkbox" name="hobby" value="coding">编程</label>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="avatar">头像上传</label>
+                        <div class="field">
+                            <input type="file" id="avatar" name="avatar" accept="image/*" multiple>
+                            <span class="tip">仅接受图片文件（image/*），按住 Ctrl 可多选</span>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="city">所在城市</label>
+                        <div class="field">
+                            <select id="city" name="city">
+                                <option value="" disabled>请选择城市</option>
+                                <option value="changsha" selected>长沙</option>
+                                <option value="changde">常德</option>
+                                <option value="hengyang">衡阳</option>
+                                <option value="yueyang">岳阳</option>
+                                <option value="yiyang">益阳</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="bio">个人简介</label>
+                        <div class="field">
+                            <textarea id="bio" name="bio" rows="4" cols="50"
+                                      placeholder="简单介绍一下自己吧……"></textarea>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="field-label"></span>
+                        <div class="field buttons">
+                            <button type="submit">注册</button>
+                            <button type="reset">重置</button>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </section>
+
+        <!-- 注意事项：无序列表 -->
+        <section>
+            <h2>注意事项</h2>
+            <ul class="notice">
+                <li>用户名一经注册不可修改，请谨慎填写；</li>
+                <li>密码长度为 6-16 位，建议字母与数字组合；</li>
+                <li>两次输入的密码必须保持一致；</li>
+                <li>手机号必须为本人常用的 11 位号码，用于账号安全验证；</li>
+                <li>请上传真实、清晰的本人头像图片。</li>
+            </ul>
+        </section>
+
+        <!-- 会员权益对比：表格（thead/tbody/th + colspan 合并单元格） -->
+        <section>
+            <h2>会员权益对比</h2>
+            <table>
+                <caption>注册成功后默认为“普通会员”，可升级为“VIP会员”</caption>
+                <thead>
+                    <tr>
+                        <th>权益项目</th>
+                        <th>普通会员</th>
+                        <th>VIP会员</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>课程资料下载</th>
+                        <td><span class="yes">支持</span></td>
+                        <td><span class="yes">支持</span></td>
+                    </tr>
+                    <tr>
+                        <th>在线答疑</th>
+                        <td><span class="no">不支持</span></td>
+                        <td><span class="yes">支持（7&times;24 小时）</span></td>
+                    </tr>
+                    <tr>
+                        <th>购书折扣</th>
+                        <td>无折扣</td>
+                        <td>9 折优惠</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">备注：VIP会员年费为 99 元，最终解释权归言若金叶学习网所有。</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <!-- 常见问题：定义列表 -->
+        <section>
+            <h2>常见问题</h2>
+            <dl>
+                <dt>Q1：注册后可以修改用户名吗？</dt>
+                <dd>A：不可以。用户名是账号的唯一标识，注册成功后无法修改，请在注册时确认无误后再提交。</dd>
+                <dt>Q2：收不到验证邮件怎么办？</dt>
+                <dd>A：请先检查邮箱的垃圾邮件文件夹，若仍未找到，可在“帮助中心”联系在线客服重新发送。</dd>
+                <dt>Q3：如何升级为 VIP 会员？</dt>
+                <dd>A：完成注册并登录后，进入“个人中心 - 会员中心”，按照页面提示在线支付即可开通。</dd>
+            </dl>
+        </section>
+
+    </main>
+
+    <!-- 页面底部：版权信息 -->
+    <footer>
+        <p>Copyright &copy; 2026 言若金叶学习网 &nbsp;|&nbsp; 软工2402 张兴健 24310212 &nbsp;|&nbsp;
+            <a href="#">回到顶部</a>
+        </p>
+    </footer>
+
+    <script>
+        // 监听表单提交事件：校验两次密码一致，并在 Console 中打印收集到的数据
+        var form = document.getElementById("registerForm");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("两次输入的密码不一致，请重新输入！");
+                document.getElementById("confirmPassword").focus();
+                return;
+            }
+
+            // 使用 FormData 收集表单中所有带 name 属性的控件数据
+            var formData = new FormData(form);
+
+            console.log("===== 注册表单收集到的数据 =====");
+            formData.forEach(function (value, key) {
+                console.log(key + " = " + value);
+            });
+            console.log("===============================");
+
+            alert("注册信息提交成功，请按 F12 打开 Console 面板查看收集到的数据！");
+        });
+    </script>
+
+</body>
+
+</html>
